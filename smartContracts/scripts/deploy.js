@@ -1,32 +1,43 @@
-// We require the Hardhat Runtime Environment explicitly here. This is optional
-// but useful for running the script in a standalone fashion through `node <script>`.
-//
-// You can also run a script with `npx hardhat run <script>`. If you do that, Hardhat
-// will compile your contracts, add the Hardhat Runtime Environment's members to the
-// global scope, and execute the script.
 const hre = require("hardhat");
+const fs = require("fs");
+
+let staking, token;
 
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const unlockTime = currentTimestampInSeconds + 60;
+	// usdcToken
+	const Token = await ethers.getContractFactory("Token");
+	token = await Token.deploy("99999999999999990000000");
+	await token.deployed();
 
-  const lockedAmount = hre.ethers.utils.parseEther("0.001");
+	// staking contract
+	const Staking = await ethers.getContractFactory("Staking");
+	staking = await Staking.deploy(token.address);
+	await staking.deployed();
 
-  const Lock = await hre.ethers.getContractFactory("Lock");
-  const lock = await Lock.deploy(unlockTime, { value: lockedAmount });
+	console.log("Staking is deployed at : ", staking.address);
 
-  await lock.deployed();
+	console.log("Token is deployed at : ", token.address);
 
-  console.log(
-    `Lock with ${ethers.utils.formatEther(
-      lockedAmount
-    )}ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}`
-  );
+	// Get contract ABIs
+	const tokenAbi = Token.interface.format("json");
+	const stakingAbi = Staking.interface.format("json");
+
+	// Write contract addresses and ABIs to file
+	const contracts = {
+		Token: [tokenAbi, token.address],
+		Staking: [stakingAbi, staking.address],
+	};
+	// fs.writeFileSync(
+	// 	"../frontend/src/Constants/contracts.json",
+	// 	JSON.stringify(contracts, null, 2)
+	// );
+
+	fs.writeFileSync("./contracts.json", JSON.stringify(contracts, null, 2));
 }
 
 // We recommend this pattern to be able to use async/await everywhere
 // and properly handle errors.
 main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
+	console.error(error);
+	process.exitCode = 1;
 });
