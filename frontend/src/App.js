@@ -47,50 +47,67 @@ function App() {
 				<WalletComponent />
 			</div>
 
-			{/* tokeminting */}
-			<div className="token-minting-div">
-				<p>Token Minting </p>
-				<div className="input-and-mint-button-div">
-					<input
-						className="input-text"
-						type="text"
-						value={inputValue}
-						onChange={handleMintInputChange}
-					/>
-					<button onClick={handleMintButton}>Mint Tokens</button>
+			<div className="main-external">
+				<div className="info-container">
+					<h3>Info about dapp :</h3>
+					<ul>
+						<li>Only the owner can mint the .</li>
+						<li>
+							When you click on "Stake," it will first prompt you to approve the
+							amount of tokens you want to stake. Once you approve the
+							transaction, MetaMask will automatically open and ask you to
+							confirm the stake transaction.
+						</li>
+					</ul>
 				</div>
-			</div>
+				
+				<div className="main-buttons-inner">
+					{/* tokeminting */}
+					<div className="token-minting-div">
+						<p>Token Minting </p>
+						<div className="input-and-mint-button-div">
+							<input
+								className="input-text"
+								type="text"
+								value={inputValue}
+								onChange={handleMintInputChange}
+							/>
+							<button onClick={handleMintButton}>Mint Tokens</button>
+						</div>
+					</div>
 
-			{/* staking */}
-			<div className="token-minting-div">
-				<p>Stake </p>
-				<div className="input-and-mint-button-div">
-					<input
-						className="input-text"
-						type="text"
-						value={stakeAmount}
-						onChange={handleStakeAmountChange}
-					/>
-					<button onClick={handleStakeButton}>Stake Tokens</button>
+					{/* staking */}
+					<div className="token-minting-div">
+						<p>Stake </p>
+						<div className="input-and-mint-button-div">
+							<input
+								className="input-text"
+								type="text"
+								value={stakeAmount}
+								onChange={handleStakeAmountChange}
+							/>
+							<button onClick={handleStakeButton}>Stake Tokens</button>
+						</div>
+					</div>
+
+					{/* unstaking */}
+
+					<div className="token-minting-div">
+						<p>Unstake </p>
+						<div className="input-and-mint-button-div">
+							<input
+								className="input-text"
+								type="text"
+								value={unstakedAmount}
+								onChange={handleUnstakeAmountChange}
+							/>
+							<button onClick={handleUnstakeButton}>Unstake Tokens</button>
+						</div>
+					</div>
 				</div>
+
+				<StakingDetailsComponent />
 			</div>
-
-			{/* unstaking */}
-
-			<div className="token-minting-div">
-				<p>Unstake </p>
-				<div className="input-and-mint-button-div">
-					<input
-						className="input-text"
-						type="text"
-						value={unstakedAmount}
-						onChange={handleUnstakeAmountChange}
-					/>
-					<button onClick={handleUnstakeButton}>Unstake Tokens</button>
-				</div>
-			</div>
-
-			<StakingDetailsComponent />
 		</div>
 	);
 }

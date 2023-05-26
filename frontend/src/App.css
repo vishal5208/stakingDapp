@@ -71,3 +71,30 @@
 .token-minting-div button:hover {
 	background-color: #1a4fb4;
 }
+
+.main-external {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 2rem;
+}
+
+.info-container {
+	width: 400px;
+
+	overflow: auto;
+	border: 1px solid #ccc;
+	padding: 10px;
+}
+
+.info-container li {
+	margin-bottom: 10px;
+}
+
+.main-buttons-inner {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 2rem;
+}
