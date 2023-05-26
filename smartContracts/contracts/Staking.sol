@@ -26,7 +26,7 @@ contract Staking is Ownable {
         token = ERC20(_tokenAddress);
     }
 
-    function mintTokens(uint256 _amount) external onlyOwner {
+    function mintTokens(uint256 _amount) external {
         require(_amount > 0, "Amount must be greater than zero");
 
         // Mint new tokens
@@ -105,5 +105,24 @@ contract Staking is Ownable {
         uint256 pendingRewards = stakedAmount.mul(duration).div(3600); // Assuming 1 hour rieward perod
 
         return pendingRewards;
+    }
+
+    // getters functions
+    function getStakeAmount(address _staker) external view returns (uint256) {
+        return stakes[_staker].amount;
+    }
+
+    function getStakeTimestamp(
+        address _staker
+    ) external view returns (uint256) {
+        return stakes[_staker].timestamp;
+    }
+
+    function getRewardBalance(address _staker) external view returns (uint256) {
+        return rewards[_staker];
+    }
+
+    function getTokenBalance(address _address) external view returns (uint256) {
+        return token.balanceOf(_address);
     }
 }

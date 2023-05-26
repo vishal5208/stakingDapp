@@ -27,12 +27,10 @@ async function main() {
 		Token: [tokenAbi, token.address],
 		Staking: [stakingAbi, staking.address],
 	};
-	// fs.writeFileSync(
-	// 	"../frontend/src/Constants/contracts.json",
-	// 	JSON.stringify(contracts, null, 2)
-	// );
-
-	fs.writeFileSync("./contracts.json", JSON.stringify(contracts, null, 2));
+	fs.writeFileSync(
+		"../frontend/src/Constants/contracts.json",
+		JSON.stringify(contracts, null, 2)
+	);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
