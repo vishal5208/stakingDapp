@@ -113,6 +113,38 @@ const unstake = async (amount) => {
 	}
 };
 
+const claimRewards = async (amount) => {
+	console.log(amount);
+	try {
+		if (typeof window.ethereum !== "undefined") {
+			await requestAccount();
+			const provider = new ethers.providers.Web3Provider(window.ethereum);
+			const signer = provider.getSigner();
+			console.log(signer);
+			const stakingContract = new ethers.Contract(
+				contracts.Staking[1],
+				contracts.Staking[0],
+				signer
+			);
+
+			const tx = await stakingContract.claimRewards();
+			await tx.wait();
+
+			alert(`Reward claimed succesfully!!!`);
+		} else {
+			return {
+				success: false,
+				msg: "Please connect your wallet!",
+			};
+		}
+	} catch (error) {
+		return {
+			success: false,
+			msg: error.message,
+		};
+	}
+};
+
 const getStakingDetails = async () => {
 	try {
 		if (typeof window.ethereum !== "undefined") {
@@ -152,4 +184,4 @@ const getStakingDetails = async () => {
 	}
 };
 
-export { stake, mintTokens, unstake, getStakingDetails };
+export { stake, mintTokens, unstake, getStakingDetails, claimRewards };

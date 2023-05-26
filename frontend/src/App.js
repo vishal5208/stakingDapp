@@ -1,7 +1,7 @@
 import "./App.css";
 import { useState } from "react";
 import { WalletComponent, StakingDetailsComponent } from "./Components";
-import { mintTokens, stake, unstake } from "./BackendConnectors";
+import { mintTokens, stake, unstake, claimRewards } from "./BackendConnectors";
 
 function App() {
 	const [inputValue, setInputValue] = useState("");
@@ -40,6 +40,13 @@ function App() {
 		setUnstakedAmount(event.target.value);
 	};
 
+	// handle claim
+
+	const handleClaimButton = async () => {
+		const obj = await claimRewards();
+		console.log(obj);
+	};
+
 	return (
 		<div className="App">
 			<div className="title-and-connect">
@@ -51,16 +58,16 @@ function App() {
 				<div className="info-container">
 					<h3>Info about dapp :</h3>
 					<ul>
-						<li>Only the owner can mint the .</li>
+						<li>Only the owner can mint the tokens</li>
 						<li>
-							When you click on "Stake," it will first prompt you to approve the
-							amount of tokens you want to stake. Once you approve the
-							transaction, MetaMask will automatically open and ask you to
+							When you click on "Stake Tokens" it will first prompt you to
+							approve the amount of tokens you want to stake. Once you approve
+							the transaction, MetaMask will automatically open and ask you to
 							confirm the stake transaction.
 						</li>
 					</ul>
 				</div>
-				
+
 				<div className="main-buttons-inner">
 					{/* tokeminting */}
 					<div className="token-minting-div">
@@ -102,6 +109,15 @@ function App() {
 								onChange={handleUnstakeAmountChange}
 							/>
 							<button onClick={handleUnstakeButton}>Unstake Tokens</button>
+						</div>
+					</div>
+
+					{/* Claim reward */}
+
+					<div className="token-minting-div">
+						<p>Claim Reward </p>
+						<div className="input-and-mint-button-div">
+							<button onClick={handleClaimButton}>Claim</button>
 						</div>
 					</div>
 				</div>

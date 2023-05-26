@@ -1,3 +1,8 @@
-import { mintTokens, stake, unstake } from "./stakingContractConnector";
+import {
+	mintTokens,
+	stake,
+	unstake,
+	claimRewards,
+} from "./stakingContractConnector";
 
-export { mintTokens, stake, unstake };
+export { mintTokens, stake, unstake, claimRewards };

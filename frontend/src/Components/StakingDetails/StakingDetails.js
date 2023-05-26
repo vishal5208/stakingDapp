@@ -33,6 +33,8 @@ export const StakingDetailsComponent = () => {
 		};
 	}, []);
 
+	const formattedTimestamp = new Date(stakeTimestamp * 1000).toLocaleString();
+
 	return (
 		<div className="staking-details-container">
 			{isLoading ? (
@@ -40,7 +42,9 @@ export const StakingDetailsComponent = () => {
 			) : (
 				<>
 					<p className="staking-detail">Stake Amount: {stakeAmount}</p>
-					<p className="staking-detail">Stake Timestamp: {stakeTimestamp}</p>
+					<p className="staking-detail">
+						Stake Timestamp: {formattedTimestamp}
+					</p>
 					<p className="staking-detail">Reward Balance: {rewardBalance}</p>
 					<p className="staking-detail">Token Balance: {tokenBalance}</p>
 				</>
