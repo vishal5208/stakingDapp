@@ -106,7 +106,11 @@ function App() {
 								value={inputValue}
 								onChange={handleMintInputChange}
 							/>
-							<button disabled={!addressMatch} onClick={handleMintButton}>
+							<button
+								className={addressMatch ? "" : "disabled"}
+								disabled={!addressMatch}
+								onClick={handleMintButton}
+							>
 								Mint Tokens
 							</button>
 						</div>
