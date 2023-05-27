@@ -3,10 +3,10 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract Staking is Ownable {
+contract Staking {
     using SafeMath for uint256;
+    address admin;
 
     ERC20 public token;
 
@@ -24,9 +24,16 @@ contract Staking is Ownable {
 
     constructor(address _tokenAddress) {
         token = ERC20(_tokenAddress);
+        admin = msg.sender;
     }
 
-    function mintTokens(uint256 _amount) external {
+    // modifier
+    modifier onlyAdmin() {
+        require(msg.sender == admin, "Only admin can perform this action");
+        _;
+    }
+
+    function mintTokens(uint256 _amount) external onlyAdmin {
         require(_amount > 0, "Amount must be greater than zero");
 
         // Mint new tokens

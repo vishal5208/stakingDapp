@@ -2,8 +2,8 @@
 
 ## Deployed on Mumbai testnet :
 
-### Staking contract : 0x4Df7c1ba44490CFA2697c9CA8De263880B725B35
+### Staking contract : 0x17911e6dB46073EAeb4037f384dcC0Cdb48C48C5
 
-### Token contract : 0xF6aBa87E95b6D4be29bD634d98a34a5d182A69ab
+### Token contract : 0x050f2e4608Ab147e803ee56668d4B9Ba666a3c01
 
 ![Output](./frontend/public/output.png)
