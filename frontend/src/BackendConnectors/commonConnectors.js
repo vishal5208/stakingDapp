@@ -1,7 +1,5 @@
 const { ethers } = require("ethers");
 
-const sixDecimals = 6;
-
 export const getEthAddress = async () => {
 	try {
 		const provider = new ethers.providers.Web3Provider(window.ethereum, "any");

@@ -5,4 +5,6 @@ import {
 	claimRewards,
 } from "./stakingContractConnector";
 
-export { mintTokens, stake, unstake, claimRewards };
+import { getEthAddress } from "./commonConnectors";
+
+export { mintTokens, stake, unstake, claimRewards, getEthAddress };

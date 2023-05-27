@@ -1,12 +1,39 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { WalletComponent, StakingDetailsComponent } from "./Components";
-import { mintTokens, stake, unstake, claimRewards } from "./BackendConnectors";
+import {
+	mintTokens,
+	stake,
+	unstake,
+	claimRewards,
+	getEthAddress,
+} from "./BackendConnectors";
 
 function App() {
 	const [inputValue, setInputValue] = useState("");
 	const [stakeAmount, setStakeAmount] = useState("");
 	const [unstakedAmount, setUnstakedAmount] = useState("");
+	const [addressMatch, setAddressMatch] = useState(false);
+
+	useEffect(() => {
+		const checkAddressMatch = async () => {
+			const { result, success } = await getEthAddress();
+			if (success) {
+				setAddressMatch(
+					result.toLowerCase() ===
+						process.env.REACT_APP_OWNER_ADDRESS.toLowerCase()
+				);
+			} else {
+				console.error("Error retrieving Ethereum address:");
+			}
+		};
+
+		const interval = setInterval(checkAddressMatch, 5000); // Check every 5 seconds
+
+		return () => {
+			clearInterval(interval); // Cleanup the interval when the component unmounts
+		};
+	}, []);
 
 	// handle minting
 	const handleMintButton = async () => {
@@ -79,7 +106,9 @@ function App() {
 								value={inputValue}
 								onChange={handleMintInputChange}
 							/>
-							<button onClick={handleMintButton}>Mint Tokens</button>
+							<button disabled={!addressMatch} onClick={handleMintButton}>
+								Mint Tokens
+							</button>
 						</div>
 					</div>
 
